@@ -6,6 +6,7 @@ import br.com.sample.solutionbto.model.Users;
 
 public interface UsersService {
 	
+	String passwordEncoder(String password);
 	List<Users> findAll();
 	Users findById(String id);
 	Users insert(Users user);

@@ -21,7 +21,6 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
-	
 	@GetMapping(value = "users")
 	public List<Users> getAll() {
 		return usersService.findAll();
@@ -33,14 +32,15 @@ public class UsersController {
 	}
 
 	@PostMapping(value = "users")
-	public Users post(@RequestBody Users users) {		
+	public Users post(@RequestBody Users users) {
+		usersService.passwordEncoder(users.getPassword());
 		return usersService.insert(users);
 	}
 
 	@PutMapping(value = "users/{id}")
 	public Users put(@RequestBody Users users, @PathVariable String id) {
 		
-		if(StringUtils.isEmpty(users.getId()) && 
+		if(StringUtils.isEmpty(users.getId()) ||
 				!users.getId().equals(id))
 			throw new RuntimeException("Id on User is not matches!");
 		

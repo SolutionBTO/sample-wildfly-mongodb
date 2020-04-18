@@ -2,6 +2,8 @@ package br.com.sample.solutionbto.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,15 +15,16 @@ public class Users implements Serializable{
 	@Id
 	public String id;
 	
-	public String firstName;
-	public String lastName;
+	@NotNull
+	public String name;
+	
+	@NotNull
+	public String email;
+	
+	@NotNull
+	public String password;
 
 	public Users() {}
-
-	public Users(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 
 	public String getId() {
 		return id;
@@ -31,19 +34,27 @@ public class Users implements Serializable{
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

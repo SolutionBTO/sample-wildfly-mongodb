@@ -1,15 +1,20 @@
 package br.com.sample.solutionbto.service;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.sample.solutionbto.model.Users;
-import br.com.sample.solutionbto.repository.UsersRepository;
+import br.com.sample.solutionbto.repository_1.UsersRepository;
 
 @Service
 public class UsersServiceImpl implements UsersService{
+	
+	public String passwordEncoder(String password) {
+		return new String(Base64.getEncoder().encode(password.getBytes()));
+	}
 	
 	@Autowired
 	private UsersRepository usersRepository;
@@ -35,6 +40,9 @@ public class UsersServiceImpl implements UsersService{
 		
 		if(usersExists == null)
 			throw new RuntimeException("User is not exist!");
+		
+		// not alter password
+		user.setPassword(usersExists.getPassword());
 		
 		return usersRepository.save(user);
 	}
