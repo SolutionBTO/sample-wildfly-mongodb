@@ -16,4 +16,4 @@ mongodb:
   secondary:
     host: localhost
     port: 27017
-    database: sampleDB1
+    database: sampleDB2
