@@ -1,16 +1,17 @@
-package br.com.sample.solutionbto.service;
+package br.com.sample.solutionbto.service.impl;
 
 import java.util.Base64;
 import java.util.List;
 
+import br.com.sample.solutionbto.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.sample.solutionbto.model.Users;
-import br.com.sample.solutionbto.repository_1.UsersRepository;
+import br.com.sample.solutionbto.repository.UsersRepository;
 
 @Service
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 	
 	public String passwordEncoder(String password) {
 		return new String(Base64.getEncoder().encode(password.getBytes()));

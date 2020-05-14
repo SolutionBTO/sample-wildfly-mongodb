@@ -7,13 +7,8 @@ spring:
     active: default
   devtools:
     add-properties: false
-
-mongodb:
-  primary:
-    host: localhost
-    port: 27017
-    database: sampleDB1
-  secondary:
-    host: localhost
-    port: 27017
-    database: sampleDB1
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: sampleDB1
