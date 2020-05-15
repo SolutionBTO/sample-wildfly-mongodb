@@ -9,6 +9,8 @@ https://www.udemy.com/course/spring-boot-com-wildfly-11-e-mongodb
 * Java 11;
 * Spring Data MongoDb;
 * Springboot Undertow;
+* Spring Fox Swagger 2;
+* Spring Auditoring;
 
 #### WildFly
 
