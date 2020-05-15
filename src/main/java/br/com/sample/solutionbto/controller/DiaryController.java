@@ -6,16 +6,19 @@ import br.com.sample.solutionbto.model.Student;
 import br.com.sample.solutionbto.service.DiaryService;
 import br.com.sample.solutionbto.service.ModuleService;
 import br.com.sample.solutionbto.service.StudentService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+@Api(tags = "diary")
 @RestController
-@RequestMapping("/diary")
+@RequestMapping("/api/v1")
 public class DiaryController {
 
 	@Autowired
@@ -27,22 +30,22 @@ public class DiaryController {
 	@Autowired
 	private ModuleService moduleService;
 
-	@GetMapping(value = {"","/"})
+	@GetMapping("/diary")
 	public List<Diary> getAll() {
 		return diaryService.findAll();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/diary/{id}")
 	public Diary getFindById(@PathVariable String id) {
 		return diaryService.findById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/diary")
 	public Diary post(@RequestBody Diary Diary) {
 		return diaryService.insert(Diary);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/diary/{id}")
 	public Diary put(@RequestBody Diary Diary, @PathVariable String id) {
 		
 		if(StringUtils.isEmpty(Diary.getId()) ||
@@ -52,32 +55,32 @@ public class DiaryController {
 		return diaryService.update(Diary);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/diary/{id}")
 	public void delete(@PathVariable String id) {
 		diaryService.delete(id);
 	}
 
-	@GetMapping("/{studentId}/student")
+	@GetMapping("/diary/{studentId}/student")
 	public List<Diary> findByStudent(@PathVariable String studentId) {
 		Student student = studentService.findById(studentId);
 
 		return diaryService.findByStudent(student);
 	}
 
-	@GetMapping("/{moduleId}/module")
+	@GetMapping("/diary/{moduleId}/module")
 	public List<Diary> findByModule(@PathVariable String moduleId) {
 		Module module = moduleService.findById(moduleId);
 
 		return diaryService.findByModule(module);
 	}
 
-	@GetMapping("/{beginDate}/{endDate}")
-	public List<Diary> findByCreateDateBetween(
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@PathVariable LocalDate beginDate,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@PathVariable LocalDate endDate){
+	@GetMapping("/diary/{beginDate}/{endDate}")
+	public List<Diary> findByDatePresenceBetween(
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			@PathVariable Date beginDate,
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			@PathVariable Date endDate){
 
-		return diaryService.findByCreateDateBetween(beginDate, endDate);
+		return diaryService.findByDatePresenceBetween(beginDate, endDate);
 	}
 }

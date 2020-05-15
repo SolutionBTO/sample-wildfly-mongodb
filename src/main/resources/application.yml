@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /api/v1
+    context-path: /
 
 spring:
   profiles:
@@ -11,4 +11,10 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: sampleDB1
+      database: sampleDB
+
+info:
+  app:
+    version: @project.version@
+    name: @project.artifactId@
+    description: @project.description@

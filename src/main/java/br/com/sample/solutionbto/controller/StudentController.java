@@ -2,35 +2,37 @@ package br.com.sample.solutionbto.controller;
 
 import br.com.sample.solutionbto.model.Student;
 import br.com.sample.solutionbto.service.StudentService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "student")
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/v1")
 public class StudentController {
 
 	@Autowired
 	private StudentService studentService;
 
-	@GetMapping(value = {"","/"})
+	@GetMapping("/student")
 	public List<Student> getAll() {
 		return studentService.findAll();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/student/{id}")
 	public Student getFindById(@PathVariable String id) {
 		return studentService.findById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/student")
 	public Student post(@RequestBody Student student) {
 		return studentService.insert(student);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/student/{id}")
 	public Student put(@RequestBody Student student, @PathVariable String id) {
 		
 		if(StringUtils.isEmpty(student.getId()) ||
@@ -40,7 +42,7 @@ public class StudentController {
 		return studentService.update(student);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/student/{id}")
 	public void delete(@PathVariable String id) {
 		studentService.delete(id);
 	}

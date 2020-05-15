@@ -4,14 +4,11 @@ import br.com.sample.solutionbto.model.Diary;
 import br.com.sample.solutionbto.model.Module;
 import br.com.sample.solutionbto.model.Student;
 import br.com.sample.solutionbto.repository.DiaryRepository;
-import br.com.sample.solutionbto.repository.DiaryRepository;
-import br.com.sample.solutionbto.service.DiaryService;
 import br.com.sample.solutionbto.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -56,7 +53,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public List<Diary> findByCreateDateBetween(LocalDate dateBegin, LocalDate dateEnd) {
-		return this.diaryRepository.findByCreateDateBetween(dateBegin,dateEnd);
+	public List<Diary> findByDatePresenceBetween(Date dateBegin, Date dateEnd) {
+		return this.diaryRepository.findByDatePresenceBetween(dateBegin,dateEnd);
 	}
 }

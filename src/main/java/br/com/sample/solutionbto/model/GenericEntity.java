@@ -1,11 +1,13 @@
 package br.com.sample.solutionbto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Document
 public class GenericEntity implements Serializable {
@@ -15,8 +17,13 @@ public class GenericEntity implements Serializable {
     @Id
     private String id;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @CreatedDate
+    private Date created;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @LastModifiedDate
-    private LocalDateTime lastModify;
+    private Date modified;
 
     public String getId() {
         return id;
@@ -26,11 +33,19 @@ public class GenericEntity implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getLastModify() {
-        return lastModify;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setLastModify(LocalDateTime lastModify) {
-        this.lastModify = lastModify;
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
     }
 }

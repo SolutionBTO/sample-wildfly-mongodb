@@ -2,35 +2,37 @@ package br.com.sample.solutionbto.controller;
 
 import br.com.sample.solutionbto.model.Module;
 import br.com.sample.solutionbto.service.ModuleService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "module")
 @RestController
-@RequestMapping("/module")
+@RequestMapping("/api/v1")
 public class ModuleController {
 
 	@Autowired
 	private ModuleService moduleService;
 
-	@GetMapping(value = {"","/"})
+	@GetMapping("/module")
 	public List<Module> getAll() {
 		return moduleService.findAll();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/module/{id}")
 	public Module getFindById(@PathVariable String id) {
 		return moduleService.findById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/module")
 	public Module post(@RequestBody Module module) {
 		return moduleService.insert(module);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/module/{id}")
 	public Module put(@RequestBody Module module, @PathVariable String id) {
 		
 		if(StringUtils.isEmpty(module.getId()) ||
@@ -40,7 +42,7 @@ public class ModuleController {
 		return moduleService.update(module);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/module/{id}")
 	public void delete(@PathVariable String id) {
 		moduleService.delete(id);
 	}

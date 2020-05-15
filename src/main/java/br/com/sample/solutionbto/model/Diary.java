@@ -1,9 +1,11 @@
 package br.com.sample.solutionbto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Diary extends GenericEntity {
 
@@ -13,10 +15,10 @@ public class Diary extends GenericEntity {
     @DBRef
     private Module module;
 
-    @CreatedDate
-    private LocalDate createDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date datePresence;
 
-    private boolean present;
+    private boolean presence;
 
     public Student getStudent() {
         return student;
@@ -34,19 +36,19 @@ public class Diary extends GenericEntity {
         this.module = module;
     }
 
-    public LocalDate getCreateDate() {
-        return createDate;
+    public Date getDatePresence() {
+        return datePresence;
     }
 
-    public void setCreateDate(LocalDate createDate) {
-        this.createDate = createDate;
+    public void setDatePresence(Date datePresence) {
+        this.datePresence = datePresence;
     }
 
-    public boolean isPresent() {
-        return present;
+    public boolean isPresence() {
+        return presence;
     }
 
-    public void setPresent(boolean present) {
-        this.present = present;
+    public void setPresence(boolean presence) {
+        this.presence = presence;
     }
 }
