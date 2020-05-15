@@ -1,19 +1,19 @@
 server:
   servlet:
-    context-path: /api/v1
+    context-path: /
 
 spring:
   profiles:
     active: default
   devtools:
     add-properties: false
-
-mongodb:
-  primary:
-    host: localhost
-    port: 27017
-    database: sampleDB1
-  secondary:
-    host: localhost
-    port: 27017
-    database: sampleDB2
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: sampleDB
+info:
+  app:
+    version: @project.version@
+    name: @project.artifactId@
+    description: @project.description@

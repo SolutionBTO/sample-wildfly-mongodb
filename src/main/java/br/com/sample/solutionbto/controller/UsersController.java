@@ -2,42 +2,39 @@ package br.com.sample.solutionbto.controller;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.sample.solutionbto.model.Users;
 import br.com.sample.solutionbto.service.UsersService;
 
+@Api(tags = "users")
 @RestController
+@RequestMapping("/api/v1")
 public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
 	
-	@GetMapping(value = "users")
+	@GetMapping("/users")
 	public List<Users> getAll() {
 		return usersService.findAll();
 	}
 
-	@GetMapping(value = "users/{id}")
+	@GetMapping("/users/{id}")
 	public Users getFindById(@PathVariable String id) {
 		return usersService.findById(id);
 	}
 
-	@PostMapping(value = "users")
+	@PostMapping("/users")
 	public Users post(@RequestBody Users users) {
 		usersService.passwordEncoder(users.getPassword());
 		return usersService.insert(users);
 	}
 
-	@PutMapping(value = "users/{id}")
+	@PutMapping("/users/{id}")
 	public Users put(@RequestBody Users users, @PathVariable String id) {
 		
 		if(StringUtils.isEmpty(users.getId()) ||
@@ -47,7 +44,7 @@ public class UsersController {
 		return usersService.update(users);
 	}
 
-	@DeleteMapping(value = "users/{id}")
+	@DeleteMapping("/users/{id}")
 	public void delete(@PathVariable String id) {
 		usersService.delete(id);
 	}
