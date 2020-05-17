@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Component
@@ -49,7 +49,13 @@ public class InitialLoad implements ApplicationListener<ContextRefreshedEvent> {
     private void createStudent(String name, String birthDay) {
         Student student = new Student();
         student.setName(name);
-        student.setBirthDay(LocalDate.parse(birthDay, DateTimeFormatter.ISO_LOCAL_DATE));
+
+        try {
+            student.setBirthDay(new SimpleDateFormat("yyyy-MM-dd").parse(birthDay));
+        } catch (ParseException pEx){
+            throw new RuntimeException(pEx);
+        }
+
         studentRepository.save(student);
     }
 

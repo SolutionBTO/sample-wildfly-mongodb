@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -24,6 +25,9 @@ public class GenericEntity implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @LastModifiedDate
     private Date modified;
+
+    @TextScore
+    private Float score;
 
     public String getId() {
         return id;
@@ -47,5 +51,13 @@ public class GenericEntity implements Serializable {
 
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
     }
 }

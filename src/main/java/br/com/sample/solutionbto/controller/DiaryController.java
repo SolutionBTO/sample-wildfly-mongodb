@@ -7,12 +7,13 @@ import br.com.sample.solutionbto.service.DiaryService;
 import br.com.sample.solutionbto.service.ModuleService;
 import br.com.sample.solutionbto.service.StudentService;
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class DiaryController {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private DiaryService diaryService;
@@ -41,18 +44,19 @@ public class DiaryController {
 	}
 
 	@PostMapping("/diary")
-	public Diary post(@RequestBody Diary Diary) {
-		return diaryService.insert(Diary);
+	public Diary post(@RequestBody Diary diary) {
+		logger.info("getDatePresence = {} ",diary.getDatePresence());
+		return diaryService.insert(diary);
 	}
 
 	@PutMapping("/diary/{id}")
-	public Diary put(@RequestBody Diary Diary, @PathVariable String id) {
+	public Diary put(@RequestBody Diary diary, @PathVariable String id) {
 		
-		if(StringUtils.isEmpty(Diary.getId()) ||
-				!Diary.getId().equals(id))
+		if(StringUtils.isEmpty(diary.getId()) ||
+				!diary.getId().equals(id))
 			throw new RuntimeException("Id on Diary is not matches!");
 		
-		return diaryService.update(Diary);
+		return diaryService.update(diary);
 	}
 
 	@DeleteMapping("/diary/{id}")
@@ -80,7 +84,7 @@ public class DiaryController {
 			@PathVariable Date beginDate,
 			@DateTimeFormat(pattern = "yyyy-MM-dd")
 			@PathVariable Date endDate){
-
+		LoggerFactory.getLogger(getClass()).info("\ndata1={}\ndata2{}",beginDate,endDate);
 		return diaryService.findByDatePresenceBetween(beginDate, endDate);
 	}
 }
