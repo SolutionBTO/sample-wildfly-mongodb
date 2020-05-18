@@ -2,14 +2,14 @@ package br.com.sample.solutionbto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Student extends GenericEntity {
 
     private String name;
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate birthDay;
+    private Date birthDay;
 
     public String getName() {
         return name;
@@ -19,11 +19,11 @@ public class Student extends GenericEntity {
         this.name = name;
     }
 
-    public LocalDate getBirthDay() {
+    public Date getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
+    public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
     }
 }

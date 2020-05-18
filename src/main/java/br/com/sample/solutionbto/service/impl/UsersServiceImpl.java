@@ -5,6 +5,8 @@ import java.util.List;
 
 import br.com.sample.solutionbto.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
 import br.com.sample.solutionbto.model.Users;
@@ -14,7 +16,7 @@ import br.com.sample.solutionbto.repository.UsersRepository;
 public class UsersServiceImpl implements UsersService {
 	
 	public String passwordEncoder(String password) {
-		return new String(Base64.getEncoder().encode(password.getBytes()));
+		return Base64.getEncoder().encodeToString(password.getBytes());
 	}
 	
 	@Autowired
@@ -53,4 +55,13 @@ public class UsersServiceImpl implements UsersService {
 		this.usersRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Users> findByFirstNameLikeIgnoreCase(String firstName) {
+		return this.usersRepository.findByFirstNameLikeIgnoreCase(firstName);
+	}
+
+	@Override
+	public List<Users> findAllBy(TextCriteria criteria, Pageable pages) {
+		return this.usersRepository.findAllBy(criteria,pages);
+	}
 }

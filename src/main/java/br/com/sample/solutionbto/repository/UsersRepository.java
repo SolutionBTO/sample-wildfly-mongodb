@@ -1,16 +1,15 @@
 package br.com.sample.solutionbto.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import br.com.sample.solutionbto.model.Users;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-@Repository
-@Transactional
+import java.util.List;
+
 public interface UsersRepository extends MongoRepository<Users, String>{
 
-	Users findByName(String name);
+	List<Users> findByFirstNameLikeIgnoreCase(String firstName);
+    List<Users> findAllBy(TextCriteria criteria, Pageable pages);
 	Users findByEmail(String email);
-
 }

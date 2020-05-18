@@ -1,10 +1,8 @@
 package br.com.sample.solutionbto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Diary extends GenericEntity {

@@ -1,14 +1,19 @@
 package br.com.sample.solutionbto.controller;
 
-import java.util.List;
-
+import br.com.sample.solutionbto.model.Users;
+import br.com.sample.solutionbto.service.UsersService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.sample.solutionbto.model.Users;
-import br.com.sample.solutionbto.service.UsersService;
+import java.util.List;
+
+import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @Api(tags = "users")
 @RestController
@@ -28,9 +33,22 @@ public class UsersController {
 		return usersService.findById(id);
 	}
 
+	@GetMapping("/users/{firstName}/like")
+	public List<Users> listLike(@PathVariable String firstName) {
+		return usersService.findByFirstNameLikeIgnoreCase(firstName);
+	}
+
+	@GetMapping("/users/{name}/full-text-search")
+	public List<Users> listFullText(@PathVariable String name) {
+		Pageable pages = PageRequest.of( 0, 10, Sort.by(new Sort.Order(ASC, "score")));
+		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(name);
+
+		return usersService.findAllBy(criteria, pages);
+	}
+
 	@PostMapping("/users")
 	public Users post(@RequestBody Users users) {
-		usersService.passwordEncoder(users.getPassword());
+		users.setPassword(usersService.passwordEncoder(users.getPassword()));
 		return usersService.insert(users);
 	}
 

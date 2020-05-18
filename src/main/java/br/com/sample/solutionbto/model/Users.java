@@ -1,45 +1,44 @@
 package br.com.sample.solutionbto.model;
 
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.lang.NonNull;
+
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
-public class Users implements Serializable{
+public class Users extends  GenericEntity implements Serializable{
 
 	private static final long serialVersionUID = -8643342433554304098L;
-	
-	@Id
-	public String id;
-	
-	@NotNull
-	public String name;
-	
-	@NotNull
+
+	@NonNull
+	@TextIndexed(weight = 2)
+	public String firstName;
+
+	@NonNull
+	@TextIndexed
+	public String lastName;
+
+	@NonNull
 	public String email;
-	
-	@NotNull
+
+	@NonNull
 	public String password;
 
 	public Users() {}
 
-	public String getId() {
-		return id;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getName() {
-		return name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
