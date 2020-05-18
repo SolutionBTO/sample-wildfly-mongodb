@@ -1,6 +1,7 @@
 package br.com.sample.solutionbto.model;
 
 import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 
@@ -8,14 +9,18 @@ public class Users extends  GenericEntity implements Serializable{
 
 	private static final long serialVersionUID = -8643342433554304098L;
 
-	@TextIndexed
+	@NonNull
+	@TextIndexed(weight = 2)
 	public String firstName;
 
+	@NonNull
 	@TextIndexed
 	public String lastName;
 
+	@NonNull
 	public String email;
-	
+
+	@NonNull
 	public String password;
 
 	public Users() {}
