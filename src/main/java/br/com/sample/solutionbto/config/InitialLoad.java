@@ -31,12 +31,13 @@ public class InitialLoad implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         List<Student> students = studentRepository.findAll();
+        var random = new Random();
 
         if (students.isEmpty()) {
             for (int x=1; x <= 25; x++)
                 this.createStudent( Student.builder()
                                             .name("Student_"+x)
-                                            .birthDay(LocalDate.of(1983, new Random().nextInt(11)+1,x))
+                                            .birthDay(LocalDate.of(1983, random.nextInt(11)+1,x))
                                             .enrollmentDate(LocalDate.now())
                                             .city( x%2==0 ? "SP":"PE")
                                     .build());

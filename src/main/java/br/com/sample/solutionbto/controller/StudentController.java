@@ -1,6 +1,7 @@
 package br.com.sample.solutionbto.controller;
 
 import br.com.sample.solutionbto.model.Student;
+import br.com.sample.solutionbto.model.StudentAggregate;
 import br.com.sample.solutionbto.service.StudentService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class StudentController {
 	@GetMapping("/student")
 	public List<Student> getAll() {
 		return studentService.findAll();
+	}
+
+	@GetMapping("/student/summary")
+	public StudentAggregate getSummary() {
+		return studentService.summary();
 	}
 
 	@GetMapping("/student/{id}")

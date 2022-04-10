@@ -5,7 +5,6 @@ import br.com.sample.solutionbto.model.Module;
 import br.com.sample.solutionbto.model.Student;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public interface DiaryService {
