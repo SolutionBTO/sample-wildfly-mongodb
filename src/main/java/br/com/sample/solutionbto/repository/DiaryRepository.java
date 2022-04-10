@@ -6,7 +6,7 @@ import br.com.sample.solutionbto.model.Student;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DiaryRepository extends MongoRepository<Diary, String>{
@@ -15,6 +15,6 @@ public interface DiaryRepository extends MongoRepository<Diary, String>{
 	List<Diary> findByModule(Module module);
 
 	@Query("{ 'datePresence' : { $gt: ?0, $lt: ?1 } }")
-	List<Diary> findByDatePresenceBetween(Date dateBegin , Date dateEnd);
+	List<Diary> findByDatePresenceBetween(LocalDate dateBegin , LocalDate dateEnd);
 
 }

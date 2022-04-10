@@ -4,7 +4,7 @@ import br.com.sample.solutionbto.model.Diary;
 import br.com.sample.solutionbto.model.Module;
 import br.com.sample.solutionbto.model.Student;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DiaryService {
@@ -16,5 +16,5 @@ public interface DiaryService {
 	void delete(String id);
 	List<Diary> findByStudent(Student student);
 	List<Diary> findByModule(Module module);
-	List<Diary> findByDatePresenceBetween(Date dateBegin , Date dateEnd);
+	List<Diary> findByDatePresenceBetween(LocalDate dateBegin , LocalDate dateEnd);
 }

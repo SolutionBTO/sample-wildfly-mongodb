@@ -1,59 +1,31 @@
 package br.com.sample.solutionbto.model;
 
+import lombok.*;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Users extends  GenericEntity implements Serializable{
 
-	private static final long serialVersionUID = -8643342433554304098L;
+	private static final long serialVersionUID = 1L;
 
 	@NonNull
 	@TextIndexed(weight = 2)
-	public String firstName;
+	private String firstName;
 
 	@NonNull
 	@TextIndexed
-	public String lastName;
+	private String lastName;
 
 	@NonNull
-	public String email;
+	private String email;
 
 	@NonNull
-	public String password;
-
-	public Users() {}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	private String password;
 }

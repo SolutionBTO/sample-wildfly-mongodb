@@ -1,27 +1,30 @@
 package br.com.sample.solutionbto.service.impl;
 
-import java.util.Base64;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import br.com.sample.solutionbto.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
 import br.com.sample.solutionbto.model.Users;
 import br.com.sample.solutionbto.repository.UsersRepository;
+import org.springframework.util.DigestUtils;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-	
-	public String passwordEncoder(String password) {
-		return Base64.getEncoder().encodeToString(password.getBytes());
-	}
-	
-	@Autowired
+
 	private UsersRepository usersRepository;
-	
+
+	public UsersServiceImpl(UsersRepository usersRepository) {
+		this.usersRepository = usersRepository;
+	}
+
+	public String passwordEncoder(String password) {
+		return DigestUtils.md5DigestAsHex(password.getBytes());
+	}
+
 	@Override
 	public List<Users> findAll() {
 		return usersRepository.findAll();
@@ -34,6 +37,8 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Users insert(Users user) {
+		user.setCreated(LocalDateTime.now());
+		user.setPassword(passwordEncoder(user.getPassword()));
 		return usersRepository.save(user);
 	}
 	
@@ -44,8 +49,10 @@ public class UsersServiceImpl implements UsersService {
 		if(usersExists == null)
 			throw new RuntimeException("User is not exist!");
 		
-		// not alter password
+		// not alter credentials
+		user.setPassword(usersExists.getEmail());
 		user.setPassword(usersExists.getPassword());
+		user.setModified(LocalDateTime.now());
 		
 		return usersRepository.save(user);
 	}

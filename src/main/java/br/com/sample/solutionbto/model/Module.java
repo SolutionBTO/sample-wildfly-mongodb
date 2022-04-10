@@ -1,14 +1,20 @@
 package br.com.sample.solutionbto.model;
 
-public class Module extends GenericEntity {
+import lombok.*;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class Module extends GenericEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private BigDecimal value;
 }
