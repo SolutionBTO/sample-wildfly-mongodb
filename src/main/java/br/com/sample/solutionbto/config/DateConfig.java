@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class DateConfig {
 
     private static final String dateFormat = "yyyy-MM-dd";
-    private static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    private static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 
     @Bean
     @ConditionalOnProperty(value = "spring.jackson.date-format", matchIfMissing = true, havingValue = "none")

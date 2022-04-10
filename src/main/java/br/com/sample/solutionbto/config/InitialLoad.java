@@ -10,9 +10,11 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class InitialLoad implements ApplicationListener<ContextRefreshedEvent> {
@@ -31,37 +33,36 @@ public class InitialLoad implements ApplicationListener<ContextRefreshedEvent> {
         List<Student> students = studentRepository.findAll();
 
         if (students.isEmpty()) {
-            this.createStudent("Nataniel", "1991-04-10");
-            this.createStudent("Fulano", "1992-04-10");
-            this.createStudent("Ciclano", "1983-04-10");
-            this.createStudent("João", "1989-04-10");
-            this.createStudent("Maria", "1985-04-10");
+            for (int x=1; x <= 25; x++)
+                this.createStudent( Student.builder()
+                                            .name("Student_"+x)
+                                            .birthDay(LocalDate.of(1983, new Random().nextInt(11)+1,x))
+                                            .enrollmentDate(LocalDate.now())
+                                            .city( x%2==0 ? "SP":"PE")
+                                    .build());
         }
 
         List<Module> modules = moduleRepository.findAll();
 
         if (modules.isEmpty()) {
-            this.createModule("Modulo 1");
-            this.createModule("Modulo 2");
+            this.createModule( Module.builder()
+                                        .name("Modulo 1")
+                                        .value(BigDecimal.valueOf(250))
+                                .build());
+            this.createModule( Module.builder()
+                                        .name("Modulo 2")
+                                        .value(BigDecimal.valueOf(250))
+                                .build());
         }
     }
 
-    private void createStudent(String name, String birthDay) {
-        Student student = new Student();
-        student.setName(name);
-
-        try {
-            student.setBirthDay(new SimpleDateFormat("yyyy-MM-dd").parse(birthDay));
-        } catch (ParseException pEx){
-            throw new RuntimeException(pEx);
-        }
-
+    private void createStudent(Student student) {
+        student.setCreated(LocalDateTime.now());
         studentRepository.save(student);
     }
 
-    private void createModule(String name) {
-        Module module = new Module();
-        module.setName(name);
+    private void createModule(Module module) {
+        module.setCreated(LocalDateTime.now());
         moduleRepository.save(module);
     }
 }
