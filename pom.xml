@@ -12,7 +12,7 @@
 	
 	<groupId>br.com.sample.solutionbto</groupId>
 	<artifactId>sample-wildfly-mongodb</artifactId>
-	<version>1.0.0</version>
+	<version>1.2.0</version>
 	<packaging>war</packaging>
 	<name>sample-wildfly-mongodb</name>
 	<description>Demo project for Spring Boot</description>

@@ -5,18 +5,21 @@ import br.com.sample.solutionbto.model.Module;
 import br.com.sample.solutionbto.model.Student;
 import br.com.sample.solutionbto.repository.DiaryRepository;
 import br.com.sample.solutionbto.service.DiaryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class DiaryServiceImpl implements DiaryService {
 
-	@Autowired
 	private DiaryRepository diaryRepository;
-	
+
+	public DiaryServiceImpl(DiaryRepository diaryRepository) {
+		this.diaryRepository = diaryRepository;
+	}
+
 	@Override
 	public List<Diary> findAll() {
 		return diaryRepository.findAll();
@@ -29,11 +32,13 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	public Diary insert(Diary diary) {
+		diary.setCreated(LocalDateTime.now());
 		return diaryRepository.save(diary);
 	}
 	
 	@Override
 	public Diary update(Diary diary) {
+		diary.setModified(LocalDateTime.now());
 		return diaryRepository.save(diary);
 	}
 	
@@ -53,7 +58,7 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public List<Diary> findByDatePresenceBetween(Date dateBegin, Date dateEnd) {
+	public List<Diary> findByDatePresenceBetween(LocalDate dateBegin, LocalDate dateEnd) {
 		return this.diaryRepository.findByDatePresenceBetween(dateBegin,dateEnd);
 	}
 }

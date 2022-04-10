@@ -1,6 +1,5 @@
 package br.com.sample.solutionbto.service;
 
-import br.com.sample.solutionbto.model.Diary;
 import br.com.sample.solutionbto.model.Module;
 
 import java.util.List;

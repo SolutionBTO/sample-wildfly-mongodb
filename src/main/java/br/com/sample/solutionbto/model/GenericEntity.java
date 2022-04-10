@@ -2,9 +2,7 @@ package br.com.sample.solutionbto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.TextScore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -27,13 +25,13 @@ public class GenericEntity implements Serializable {
     @Id
     private String id;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     @CreatedDate
-    private Date created;
+    private LocalDateTime created;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     @LastModifiedDate
-    private Date modified;
+    private LocalDateTime modified;
 
     @TextScore
     private Float score;
