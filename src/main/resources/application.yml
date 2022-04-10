@@ -1,8 +1,11 @@
 server:
+  port: 8080
   servlet:
     context-path: /
 
 spring:
+  application:
+    name: @project.artifactId@
   profiles:
     active: default
   devtools:
@@ -24,3 +27,11 @@ info:
     version: @project.version@
     name: @project.artifactId@
     description: @project.description@
+
+logging:
+  level:
+    br:
+      com:
+        solutionbto: INFO
+    org:
+      springframework: WARN

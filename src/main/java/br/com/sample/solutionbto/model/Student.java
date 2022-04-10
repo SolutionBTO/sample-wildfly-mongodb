@@ -1,29 +1,22 @@
 package br.com.sample.solutionbto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Student extends GenericEntity {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Student extends GenericEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDay;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
-    }
 }
