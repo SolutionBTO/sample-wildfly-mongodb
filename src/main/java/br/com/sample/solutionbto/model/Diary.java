@@ -1,11 +1,20 @@
 package br.com.sample.solutionbto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Diary extends GenericEntity {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Diary extends GenericEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @DBRef
     private Student student;
@@ -17,36 +26,4 @@ public class Diary extends GenericEntity {
     private Date datePresence;
 
     private boolean presence;
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Module getModule() {
-        return module;
-    }
-
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
-    public Date getDatePresence() {
-        return datePresence;
-    }
-
-    public void setDatePresence(Date datePresence) {
-        this.datePresence = datePresence;
-    }
-
-    public boolean isPresence() {
-        return presence;
-    }
-
-    public void setPresence(boolean presence) {
-        this.presence = presence;
-    }
 }

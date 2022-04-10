@@ -2,6 +2,9 @@ package br.com.sample.solutionbto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,11 +15,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(value = Include.NON_NULL)
 @Document
 public class GenericEntity implements Serializable {
 
-    private static final long serialVersionUID=-1;
+    private static final long serialVersionUID = 1L;
 
     @Id
     private String id;
@@ -31,36 +37,4 @@ public class GenericEntity implements Serializable {
 
     @TextScore
     private Float score;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
-
-    public Float getScore() {
-        return score;
-    }
-
-    public void setScore(Float score) {
-        this.score = score;
-    }
 }
